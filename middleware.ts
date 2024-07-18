@@ -1,12 +1,11 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextMiddleware, NextRequest, NextResponse } from "next/server";
 
-const handler: NextMiddleware = async (req: NextRequest, res: NextResponse) => {
+const handler: NextMiddleware = async (req: NextRequest) => {
   if (req.url === '/api/webhooks/clerk') {
-    return { response: null };
+    return NextResponse.json({ message: 'Webhook received' }); 
   }
-  await clerkMiddleware()(req, res);
-
+  return clerkMiddleware()(req, {} as any); 
 };
 
 export default handler;
